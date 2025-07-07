@@ -1,3 +1,10 @@
+// Interface Segregation Principle :
+// Clients should not be forced to depend on interfaces they do not use.    
+// In this example, we have segregated the Uber interface into Rider and Driver interfaces.
+// This allows Rider and Driver classes to implement only the methods relevant to them,
+// adhering to the Interface Segregation Principle.
+
+
 // interface Uber{
 //     void bookRide();
 //     void acceptRide();

@@ -1,3 +1,11 @@
+// Dependency Inversion Principle : 
+// High-level modules should not depend on low-level modules. Both should depend on abstractions.
+// Abstractions should not depend on details. Details should depend on abstractions.
+// In this example, we have a recommendation system that can use different strategies for recommending content.
+// The high-level module (RecommendationEngine) depends on the abstraction (RecommendationStrategy),
+// not on the concrete implementations (RecentRecomendations, GenreRecomendations, TrendingRecomendations).
+// This allows us to easily add new recommendation strategies without modifying the high-level module.
+
 interface RecommendationStrategy{
     void recomend();
 }
