@@ -34,6 +34,16 @@ class BurgerMeal{
     private final String side;
     private final String drink;
 
+    // Getter for bunType
+    public String getBunType() {
+        return bunType;
+    }
+
+    // Getter for patty
+    public String getPatty() {
+        return patty;
+    }
+
     // Private Constructuor
     private BurgerMeal(BurgerBuilder builder) {
         this.bunType = builder.bunType;
@@ -42,6 +52,11 @@ class BurgerMeal{
         this.toopings = builder.toopings;
         this.side = builder.side;
         this.drink = builder.drink;
+    }
+
+    // Getter for hasChees
+    public boolean hasChees() {
+        return hasChees;
     }
 
     public static class BurgerBuilder{
@@ -91,32 +106,100 @@ public class BuilderPattern {
         BurgerMeal burgerMealWithChees = new BurgerMeal.BurgerBuilder("Wheet", "veg").withChees(true).build();
         BurgerMeal burgerMealWithCheesWithSide = new BurgerMeal.BurgerBuilder("Wheet", "veg").withChees(true).withSide("fries").build();
 
-        // CartServices cartServices = CartServices.builder()
-        //                             .productName("White Sneekers")
-        //                             .quantity(1).price(7000)
-        //                             .companyName("Puma").build();
-        
-        // cartServices.getCartDetails();
+        CartServices cartServices = new CartServices.CartBuilder()
+            .productName("White Sneekers")
+            .quantity(1)
+            .price(7000)
+            .companyName("Puma")
+            .build();
+        cartServices.getCartDetails();
     }
 }
 // Using Lomok Builder Annotation
 // @Builder
-// class CartServices{
-//     // Required
-//     private int quantity;
-//     private long price;
-//     private String productName;
-//     private String companyName;
+class CartServices {
+    // Required
+    private final int quantity;
+    private final long price;
+    private final String productName;
+    private final String companyName;
 
-//     // optional 
-//     private long discountedPrice;
-//     private boolean saveForLater;
-//     private String colour;
-//     private String Size;
+    // Optional 
+    private final long discountedPrice;
+    private final boolean saveForLater;
+    private final String colour;
+    private final String size;
 
-//     public void getCartDetails(){
-//         System.out.println(productName + " From " + companyName + quantity + " Pices" + "\n With Total Price " + price );
-//     }
-    
+    private CartServices(CartBuilder builder) {
+        this.quantity = builder.quantity;
+        this.price = builder.price;
+        this.productName = builder.productName;
+        this.companyName = builder.companyName;
+        this.discountedPrice = builder.discountedPrice;
+        this.saveForLater = builder.saveForLater;
+        this.colour = builder.colour;
+        this.size = builder.size;
+    }
 
-// }
+    public static class CartBuilder {
+        // Required
+        private int quantity;
+        private long price;
+        private String productName;
+        private String companyName;
+
+        // Optional 
+        private long discountedPrice;
+        private boolean saveForLater;
+        private String colour;
+        private String size;
+
+        public CartBuilder productName(String productName) {
+            this.productName = productName;
+            return this;
+        }
+
+        public CartBuilder quantity(int quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public CartBuilder price(long price) {
+            this.price = price;
+            return this;
+        }
+
+        public CartBuilder companyName(String companyName) {
+            this.companyName = companyName;
+            return this;
+        }
+
+        public CartBuilder discountedPrice(long discountedPrice) {
+            this.discountedPrice = discountedPrice;
+            return this;
+        }
+
+        public CartBuilder saveForLater(boolean saveForLater) {
+            this.saveForLater = saveForLater;
+            return this;
+        }
+
+        public CartBuilder colour(String colour) {
+            this.colour = colour;
+            return this;
+        }
+
+        public CartBuilder size(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public CartServices build() {
+            return new CartServices(this);
+        }
+    }
+
+    public void getCartDetails() {
+        System.out.println(productName + " From " + companyName + " " + quantity + " Pieces" + "\nWith Total Price " + price);
+    }
+}
